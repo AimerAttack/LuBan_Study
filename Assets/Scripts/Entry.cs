@@ -29,6 +29,7 @@ public class Entry : MonoBehaviour
         TestSimple();
         TestList();
         TestBean();
+        TestLang();
     }
     
     private  JSONNode LoadJson(string file)
@@ -65,5 +66,13 @@ public class Entry : MonoBehaviour
         Debug.Log(item.Item.ToString());
         Debug.Log(item.Items[0].ToString());
         Debug.Log("-----------TestBean end");   
+    }
+
+    void TestLang()
+    {
+        Debug.Log("-----------TestLang start");
+        var lang = tables.TbLang.Get(1);
+        Debug.Log(lang.Name);
+        Debug.Log("-----------TestLang end");
     }
 }
