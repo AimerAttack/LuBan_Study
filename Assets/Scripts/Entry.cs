@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Bright.Serialization;
+using cfg;
 using SimpleJSON;
 using UnityEngine;
 
@@ -13,6 +15,7 @@ public class Entry : MonoBehaviour
         LoadConfig();
     }
 
+    Tables tables;
     void LoadConfig()
     {
         var tablesCtor = typeof(cfg.Tables).GetConstructors()[0];
@@ -21,9 +24,10 @@ public class Entry : MonoBehaviour
         System.Delegate loader = loaderReturnType == typeof(ByteBuf) ?
             new System.Func<string, ByteBuf>(LoadByteBuf)
             : (System.Delegate)new System.Func<string, JSONNode>(LoadJson);
-        var tables = (cfg.Tables)tablesCtor.Invoke(new object[] {loader});
-        var reward = tables.TbReward.Get(1);
-        Debug.Log(reward.ToString());
+        tables = (cfg.Tables)tablesCtor.Invoke(new object[] {loader});
+        
+        TestSimple();
+        TestList();
     }
     
     private  JSONNode LoadJson(string file)
@@ -34,5 +38,22 @@ public class Entry : MonoBehaviour
     private  ByteBuf LoadByteBuf(string file)
     {
         return new ByteBuf(File.ReadAllBytes($"{Application.dataPath}/../GenerateDatas/bin/{file}.bytes"));
+    }
+
+    void TestSimple()
+    {
+        Debug.Log("-----------TestSimple start");
+        var reward = tables.TbReward.Get(1);
+        Debug.Log(reward.ToString());
+        Debug.Log("-----------TestSimple end");
+    }
+
+    void TestList()
+    {
+        Debug.Log("-----------TestList start");
+        var item = tables.TbListTest.Get(1);
+        var str = string.Join(",", item.Name);
+        Debug.Log(str);
+        Debug.Log("-----------TestList end");
     }
 }
