@@ -28,18 +28,19 @@ public class Entry : MonoBehaviour
         
         TestSimple();
         TestList();
+        TestBean();
     }
     
     private  JSONNode LoadJson(string file)
     {
         return JSON.Parse(File.ReadAllText($"{Application.dataPath}/../GenerateDatas/json/{file}.json", System.Text.Encoding.UTF8));
     }
-
+    
     private  ByteBuf LoadByteBuf(string file)
     {
         return new ByteBuf(File.ReadAllBytes($"{Application.dataPath}/../GenerateDatas/bin/{file}.bytes"));
     }
-
+    
     void TestSimple()
     {
         Debug.Log("-----------TestSimple start");
@@ -47,7 +48,7 @@ public class Entry : MonoBehaviour
         Debug.Log(reward.ToString());
         Debug.Log("-----------TestSimple end");
     }
-
+    
     void TestList()
     {
         Debug.Log("-----------TestList start");
@@ -55,5 +56,14 @@ public class Entry : MonoBehaviour
         var str = string.Join(",", item.Name);
         Debug.Log(str);
         Debug.Log("-----------TestList end");
+    }
+
+    void TestBean()
+    {
+        Debug.Log("-----------TestBean start");
+        var item = tables.TBStrteaming.Get(1);
+        Debug.Log(item.Item.ToString());
+        Debug.Log(item.Items[0].ToString());
+        Debug.Log("-----------TestBean end");   
     }
 }

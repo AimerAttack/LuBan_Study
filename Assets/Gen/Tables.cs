@@ -16,6 +16,7 @@ public partial class Tables
     public item.TbItem TbItem {get; }
     public item.TbReward TbReward {get; }
     public list.TbListTest TbListTest {get; }
+    public streaming.TBStrteaming TBStrteaming {get; }
 
     public Tables(System.Func<string, ByteBuf> loader)
     {
@@ -26,11 +27,14 @@ public partial class Tables
         tables.Add("item.TbReward", TbReward);
         TbListTest = new list.TbListTest(loader("list_tblisttest")); 
         tables.Add("list.TbListTest", TbListTest);
+        TBStrteaming = new streaming.TBStrteaming(loader("streaming_tbstrteaming")); 
+        tables.Add("streaming.TBStrteaming", TBStrteaming);
 
         PostInit();
         TbItem.Resolve(tables); 
         TbReward.Resolve(tables); 
         TbListTest.Resolve(tables); 
+        TBStrteaming.Resolve(tables); 
         PostResolve();
     }
 
@@ -39,6 +43,7 @@ public partial class Tables
         TbItem.TranslateText(translator); 
         TbReward.TranslateText(translator); 
         TbListTest.TranslateText(translator); 
+        TBStrteaming.TranslateText(translator); 
     }
     
     partial void PostInit();
