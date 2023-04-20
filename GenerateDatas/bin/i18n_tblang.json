@@ -3,14 +3,14 @@
     "id": 1,
     "name": {
       "key": "key1",
-      "text": "本地化1"
+      "text": "local1"
     }
   },
   {
     "id": 2,
     "name": {
       "key": "key2",
-      "text": "本地化2"
+      "text": "local2"
     }
   }
 ]
